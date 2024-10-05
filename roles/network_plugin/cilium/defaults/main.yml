@@ -275,6 +275,8 @@ cilium_monitor_aggregation_flags: "all"
 
 cilium_enable_bpf_clock_probe: true
 
+cilium_enable_bgp_control_plane: false
+
 # -- Whether to enable CNP status updates.
 cilium_disable_cnp_status_updates: true
 
