@@ -92,7 +92,7 @@ For further information, check [BGP Peering Policy documentation](https://docs.c
 ## Kube-proxy replacement with Cilium
 
 Cilium can run without kube-proxy by setting `cilium_kube_proxy_replacement`
-to `strict`.
+to `strict` or `true`.
 
 Without kube-proxy, cilium needs to know the address of the kube-apiserver
 and this must be set globally for all Cilium components (agents and operators).
