@@ -68,7 +68,7 @@ cilium_enable_bgp_control_plane: true
 
 For further information, check [BGP Peering Policy documentation](https://docs.cilium.io/en/latest/network/bgp-control-plane/bgp-control-plane-v1/)
 
-### BGP Control Plane Resources (Legacy v1.16+)
+### BGP Control Plane Resources (New bgpv2 API v1.16+)
 
 Cilium BGP control plane is managed by a set of custom resources which provide a flexible way to configure BGP peers, policies, and advertisements.
 
