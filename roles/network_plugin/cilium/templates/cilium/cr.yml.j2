@@ -124,6 +124,7 @@ rules:
   - ciliumbgpnodeconfigs/status
   - ciliumbgpadvertisements
   - ciliumbgppeerconfigs
+{% endif %}
 {% if cilium_version | regex_replace('v') is version('1.16', '>=') %}
   - ciliumbgpclusterconfigs
 {% endif %}
