@@ -64,6 +64,8 @@
     - not kube_external_ca_mode
 
 - name: Get content of kube admin conf file
+  run_once: true
+  delegate_to: "{{ groups['kube_control_plane'] | first }}"
   ansible.builtin.slurp:
     src: /etc/kubernetes/admin.conf
   register: cluster_admin_conf_file
