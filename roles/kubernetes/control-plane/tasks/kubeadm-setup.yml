@@ -82,6 +82,13 @@
     mode: "0640"
   when: kube_apiserver_tracing
 
+- name: Write cluster-info configmap yaml
+  template:
+    src: bootstrapper-cluster-configmap.yaml.j2
+    dest: "{{ kube_config_dir }}/bootstrapper-cluster-configmap.yaml"
+    mode: "0640"
+  when: remove_anonymous_access
+
 - name: Write rolebinding for bootstrapper to read node info yaml
   template:
     src: bootstrapper-rolebinding-node-info.yaml.j2
