@@ -63,6 +63,21 @@
     - kubeadm_already_run is not defined or not kubeadm_already_run.stat.exists
     - not kube_external_ca_mode
 
+- name: Write cluster-info configmap yaml
+  run_once: true
+  delegate_to: "{{ groups['kube_control_plane'] | first }}"
+  vars:
+    cluster_admin_conf: "{{ lookup('file', '/etc/kubernetes/admin.conf')|from_yaml }}"
+  template:
+    src: bootstrapper-cluster-configmap.yaml.j2
+    dest: "{{ kube_config_dir }}/bootstrapper-cluster-configmap.yaml"
+    mode: "0640"
+  when: 
+    - remove_anonymous_access
+    - kubeadm_use_file_discovery
+    - kubeadm_already_run is not defined or not kubeadm_already_run.stat.exists
+
+
 - name: Apply cluster-info configmap
   command: "{{ kubectl }} apply -f {{ kube_config_dir }}/bootstrapper-cluster-configmap.yaml"
   run_once: true
