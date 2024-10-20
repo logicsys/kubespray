@@ -63,11 +63,16 @@
     - kubeadm_already_run is not defined or not kubeadm_already_run.stat.exists
     - not kube_external_ca_mode
 
+- name: Get content of kube admin conf file
+  ansible.builtin.slurp:
+    src: /etc/kubernetes/admin.conf
+  register: cluster_admin_conf_file
+
 - name: Write cluster-info configmap yaml
   run_once: true
   delegate_to: "{{ groups['kube_control_plane'] | first }}"
   vars:
-    cluster_admin_conf: "{{ lookup('file', '/etc/kubernetes/admin.conf')|from_yaml }}"
+    cluster_admin_conf: "{{ cluster_admin_conf_file.content | b64decode | from_yaml }}"
   template:
     src: bootstrapper-cluster-configmap.yaml.j2
     dest: "{{ kube_config_dir }}/bootstrapper-cluster-configmap.yaml"
