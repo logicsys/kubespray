@@ -83,6 +83,16 @@
     - kubeadm_use_file_discovery
     - kubeadm_already_run is not defined or not kubeadm_already_run.stat.exists
 
+- name: Apply RoleBinding to allow bootstrapper permission to read node info
+  command: "{{ kubectl }} apply -f {{ kube_config_dir }}/bootstrapper-rolebinding-node-info.yaml"
+  register: kubeconfig_file_discovery
+  run_once: true
+  delegate_to: "{{ groups['kube_control_plane'] | first }}"
+  when:
+    - remove_anonymous_access
+    - kubeadm_use_file_discovery
+    - kubeadm_already_run is not defined or not kubeadm_already_run.stat.exists
+
 - name: Joining control plane node to the cluster.
   command: >-
     {{ bin_dir }}/kubeadm join
