@@ -83,6 +83,8 @@
   when: kube_apiserver_tracing
 
 - name: Write cluster-info configmap yaml
+  vars:
+    cluster_admin_conf: "{{ lookup('file', '/etc/kubernetes/admin.conf')|from_yaml }}"
   template:
     src: bootstrapper-cluster-configmap.yaml.j2
     dest: "{{ kube_config_dir }}/bootstrapper-cluster-configmap.yaml"
